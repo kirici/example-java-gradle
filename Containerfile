@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM gradle:8.3.0-jdk11-jammy AS base
+FROM docker.io/library/gradle:8.3.0-jdk20-jammy AS base
 ENV GRADLE_USER_HOME="${PWD}"/.gradle
 
 WORKDIR /home/project
@@ -17,7 +17,7 @@ COPY . .
 RUN ./gradlew build --no-daemon
 
 #------------------------------#
-FROM eclipse-temurin:11-jdk-jammy
+FROM docker.io/library/eclipse-temurin:20-jdk-jammy
 
 WORKDIR /home/project
 COPY --from=build /home/project/app/build/libs/app.jar .

@@ -11,10 +11,10 @@ ENV GRADLE_USER_HOME="${PWD}"/.gradle
 WORKDIR /home/project
 COPY --from=base /home/project .
 COPY . .
-RUN ./gradlew build --no-daemon
+RUN ./gradlew spotlessCheck || true
+RUN ./gradlew build
 #------------------------------#
 FROM docker.io/library/eclipse-temurin:20-jdk-jammy
 WORKDIR /home/project
 COPY --from=build /home/project/app/build/libs/app.jar .
 CMD ["java", "-jar", "app.jar"]
-

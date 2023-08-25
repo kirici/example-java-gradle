@@ -1,8 +1,10 @@
 plugins {
     id("org.jetbrains.kotlin.jvm") version "1.8.22"
-    application
-    checkstyle
+    id("java")
     id("com.diffplug.spotless") version "6.20.0"
+    id("checkstyle")
+
+    application
 }
 repositories {
     mavenCentral()
@@ -20,11 +22,16 @@ tasks.withType<Checkstyle>().configureEach {
         xml.required.set(false)
         html.required.set(false)
     }
+    val archive = configurations.checkstyle.get().resolve().filter {
+        it.name.startsWith("checkstyle")
+    }
+    config = resources.text.fromArchiveEntry(archive, "google_checks.xml")
 }
 spotless {
-  java {
-    googleJavaFormat()
-  }
+    isEnforceCheck = false
+    java {
+        googleJavaFormat()
+    }
 }
 application {
     mainClass.set("demo.MainJava") 

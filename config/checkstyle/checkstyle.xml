@@ -8,7 +8,6 @@
 
         <property name="basedir" value="${basedir}"/>
     -->
-    <property name="basedir" value="${basedir}" />
 
     <property name="severity" value="error" />
 

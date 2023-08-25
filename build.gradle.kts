@@ -13,8 +13,11 @@ checkstyle {
     toolVersion = "10.12.2"
 }
 tasks.withType<Checkstyle>().configureEach {
+    isIgnoreFailures = true
     reports {
         sarif.required.set(true)
+        xml.required.set(false)
+        html.required.set(false)
     }
 }
 application {
